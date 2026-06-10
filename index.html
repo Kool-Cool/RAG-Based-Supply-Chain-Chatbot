@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Supply Chain Chatbot</title>
 
     <style>
@@ -11,21 +11,27 @@
             padding: 0;
             box-sizing: border-box;
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         body {
-            min-height: 100vh;
+            height: 100vh;
             background: linear-gradient(135deg, #0f172a, #1e293b, #2563eb);
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 30px;
+            padding: 20px;
             color: white;
+            overflow: hidden;
         }
 
         .container {
             width: 100%;
             max-width: 1200px;
+            height: 95vh;
+            display: flex;
+            flex-direction: column;
             backdrop-filter: blur(20px);
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.15);
@@ -36,42 +42,35 @@
 
         .header {
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px 20px;
             background: rgba(255, 255, 255, 0.05);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
         }
 
         .header h1 {
-            font-size: 2.8rem;
+            font-size: 2.4rem;
             margin-bottom: 10px;
-            font-weight: 700;
-            letter-spacing: 1px;
         }
 
         .header p {
             color: rgba(255, 255, 255, 0.8);
             font-size: 1rem;
-            margin-bottom: 15px;
         }
 
         .author {
+            margin-top: 10px;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             background: rgba(255, 255, 255, 0.08);
-            padding: 10px 18px;
+            padding: 8px 14px;
             border-radius: 50px;
-        }
-
-        .author span {
-            font-weight: 600;
         }
 
         .author a {
             color: #60a5fa;
             text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s;
         }
 
         .author a:hover {
@@ -79,30 +78,33 @@
         }
 
         .chat-section {
-            padding: 20px;
-            height: 75vh;
+            flex: 1;
+            min-height: 0;
+            padding: 15px;
+            overflow: hidden;
         }
 
         flowise-fullchatbot {
             display: block;
             width: 100%;
             height: 100%;
-            border-radius: 18px;
+            border-radius: 16px;
             overflow: hidden;
+        }
+
+        /* Force internal scrolling safety */
+        .chat-section * {
+            max-width: 100%;
         }
 
         @media (max-width: 768px) {
             .header h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
-            .chat-section {
-                height: 70vh;
-            }
-
-            .author {
-                flex-direction: column;
-                gap: 6px;
+            .container {
+                height: 100vh;
+                border-radius: 0;
             }
         }
     </style>
@@ -114,16 +116,11 @@
 
         <div class="header">
             <h1>Supply Chain Chatbot</h1>
-
-            <p>
-                Intelligent Supply Chain Assistant powered by Flowise AI
-            </p>
+            <p>Intelligent Supply Chain Assistant powered by Flowise AI</p>
 
             <div class="author">
                 <span>Developed by Kool-Cool</span>
-                <a href="https://github.com/Kool-Cool" target="_blank">
-                    GitHub ↗
-                </a>
+                <a href="https://github.com/Kool-Cool" target="_blank">GitHub ↗</a>
             </div>
         </div>
 
@@ -134,12 +131,26 @@
     </div>
 
     <script type="module">
-        import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+        import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js";
 
         Chatbot.initFull({
             chatflowid: "30db7cce-16e8-4ed1-b555-01796c687693",
             apiHost: "https://cloud.flowiseai.com",
-        })
+            theme: {
+                chatWindow: {
+                    width: "100%",
+                    height: "100%"
+                },
+                userMessage: {
+                    backgroundColor: "#2563eb",
+                    color: "#fff"
+                },
+                botMessage: {
+                    backgroundColor: "#1e293b",
+                    color: "#fff"
+                }
+            }
+        });
     </script>
 
 </body>
