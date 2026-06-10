@@ -1,40 +1,51 @@
 # Supply Chain Chatbot using Flowise
 
-This project implements a Retrieval-Augmented Generation (RAG) chatbot using Flowise to answer questions about a supplier network. The chatbot uses the provided datasets and documents as its knowledge base and delivers context-aware responses through a web interface.
+This project implements a Retrieval-Augmented Generation (RAG) chatbot using Flowise to answer questions about a supplier network. The chatbot uses structured and unstructured supply chain data and delivers context-aware responses through a web interface.
 
 ## Project Overview
 
-The objective of this project is to build a chatbot capable of answering questions related to suppliers, products, supply chain relationships, and supporting documentation using Retrieval-Augmented Generation (RAG).
+The objective of this project is to build a chatbot capable of answering questions related to suppliers, products, supply chain relationships, and supporting documents using Retrieval-Augmented Generation (RAG).
 
-The chatbot is developed using Flowise and embedded into a simple HTML webpage. Users can interact with the chatbot through the web interface, and responses are generated using relevant information retrieved from structured and unstructured data sources.
+The chatbot is developed using Flowise and embedded into a simple HTML webpage. Users can interact with the chatbot through the web interface, and responses are generated using relevant information retrieved from multiple data sources.
 
 ## Architecture
 
-The solution combines multiple data sources:
+The system uses a multi-source RAG pipeline:
 
-- CSV datasets are stored and queried using PostgreSQL.
-- PDF documents are processed using text retrieval techniques.
-- Flowise orchestrates the retrieval and generation workflow.
-- Grok AI is used as the Large Language Model (LLM) for response generation.
+- CSV data is stored and queried using PostgreSQL
+- PDF documents are processed using text retrieval techniques
+- Vector embeddings are generated using Hugging Face embedding models
+- Pinecone is used as the vector database for semantic search and retrieval
+- Flowise orchestrates the full RAG workflow
+- Grok AI is used as the LLM for final response generation
+
+The overall architecture is shown below:
+
+```
+static/flow.png
+```
 
 ## Features
 
-- Retrieval-Augmented Generation (RAG) architecture
+- Retrieval-Augmented Generation (RAG) pipeline
 - Flowise-powered conversational interface
-- PostgreSQL-based retrieval for structured CSV data
-- Text retrieval from PDF documents
-- Context-aware question answering
-- Supply chain and supplier network analysis
-- Publicly accessible deployment
-- Responsive web-based frontend
+- PostgreSQL-based structured data retrieval (CSV)
+- PDF text retrieval for unstructured documents
+- Pinecone vector database for semantic search
+- Hugging Face embeddings for vector generation
+- Context-aware supply chain question answering
+- Web-based chatbot interface
+- Public deployment support
 
 ## Technologies Used
 
 - Flowise AI
 - Grok AI
 - PostgreSQL
+- Pinecone
+- Hugging Face Embeddings
 - Retrieval-Augmented Generation (RAG)
-- Document Retrieval
+- Document Text Retrieval
 - HTML
 - CSS
 - JavaScript
@@ -42,24 +53,36 @@ The solution combines multiple data sources:
 ## Data Sources
 
 ### Structured Data
-
-CSV datasets containing supplier and supply chain information are stored in PostgreSQL and queried during retrieval.
+CSV datasets are stored in PostgreSQL and used for querying supplier and supply chain information.
 
 ### Unstructured Data
-
-PDF documents are processed and indexed for text retrieval, allowing the chatbot to answer questions based on document content.
+PDF documents are processed and indexed for text retrieval to support document-based question answering.
 
 ## Project Structure
 
 ```text
 .
 ├── index.html
+├── static/
+│   └── flow.png
 └── README.md
 ```
 
+## System Workflow
+
+1. User submits a question through the chatbot UI.
+2. Flowise receives and processes the query.
+3. Relevant structured data is retrieved from PostgreSQL (CSV-based queries).
+4. Relevant text is retrieved from PDF documents.
+5. Embeddings are generated using Hugging Face models.
+6. Vector search is performed using Pinecone.
+7. Retrieved context is passed to Grok AI.
+8. Grok AI generates a final response.
+9. The response is returned to the user via the chatbot interface.
+
 ## Implementation
 
-The chatbot is hosted through Flowise Cloud and embedded into the webpage using the Flowise Embed SDK.
+The chatbot is embedded into the webpage using Flowise Embed SDK.
 
 ```javascript
 Chatbot.initFull({
@@ -68,30 +91,18 @@ Chatbot.initFull({
 })
 ```
 
-### Workflow
-
-1. User submits a question through the chatbot interface.
-2. Flowise determines the appropriate retrieval source.
-3. Relevant records are retrieved from PostgreSQL for CSV-based queries.
-4. Relevant passages are retrieved from indexed PDF documents using text retrieval.
-5. Retrieved context is sent to Grok AI.
-6. Grok AI generates a context-aware response.
-7. The response is displayed to the user.
-
 ## Deployment
 
-The application is deployed as a static website and can be accessed through a public URL.
+The project is deployed as a static website and can be hosted on:
 
-The frontend consists of a single HTML page that embeds the Flowise chatbot, making it suitable for deployment on platforms such as GitHub Pages, Netlify, or Vercel.
+- GitHub Pages
+- Netlify
+- Vercel
+- Any static hosting service
 
 ## Author
 
-**Name:** ASNS
+**Name:** Kool-Cool  
+**GitHub:** https://github.com/Kool-Cool  
+**Email:** 22f2001265@ds.study.iitm.ac.in  
 
-**GitHub:** https://github.com/Kool-Cool
-
-**Email:** 22f2001265@ds.study.iitm.ac.in
-
-## License
-
-This project was developed for educational and academic purposes.
