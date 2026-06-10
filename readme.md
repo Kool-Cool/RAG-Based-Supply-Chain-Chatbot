@@ -21,9 +21,7 @@ The system uses a multi-source RAG pipeline:
 
 The overall architecture is shown below:
 
-```
-static/flow.png
-```
+![architecture](static/flow.png)
 
 ## Features
 
